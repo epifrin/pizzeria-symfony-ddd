@@ -1,5 +1,4 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+
+product_list:
+    path: /
+    controller: \App\Product\Application\Controller\ProductController::list
