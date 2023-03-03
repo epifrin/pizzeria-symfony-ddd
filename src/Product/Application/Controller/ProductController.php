@@ -6,11 +6,11 @@ use App\Product\Domain\Query\GetProductListQuery;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-class ProductController extends AbstractController
+final class ProductController extends AbstractController
 {
     public function __construct(
-        private readonly GetProductListQuery $getProductList)
-    {
+        private readonly GetProductListQuery $getProductList
+    ) {
     }
 
     public function list(): Response

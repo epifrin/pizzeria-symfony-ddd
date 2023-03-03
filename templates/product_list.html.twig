@@ -1,19 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Product list</h1>
+    <h1>Pizza</h1>
 
     <div class="row">
         <div class="col">
-        {% for product in productList %}
             <div class="row">
+            {% for product in productList %}
                 <div class="col">
-                    {{ product.title }}<br>
-                    {{ product.description }}
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ product.image }}" class="card-img-top" alt="{{ product.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.title }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <div class="row">
+                                <div class="col">
+                                    <button class="btn btn-primary" onclick="add({{ product.productId }});">Add</button>
+                                </div>
+                                <div class="col text-end">
+                                    <span id="quantity{{ product.productId }}" data-product-id="{{ product.productId }}" class="quantity">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            {% endfor %}
             </div>
-        {% endfor %}
+            <button class="btn btn-success" onclick="createOrder();">Create Order</button>
         </div>
     </div>
+
+    <script>
+        function add(productId)
+        {
+            const prevValue = parseInt(document.getElementById('quantity' + productId).textContent);
+            document.getElementById('quantity' + productId).textContent = prevValue + 1;
+        }
+
+        function createOrder()
+        {
+            let hasItems = false;
+            const searchParams = new URLSearchParams();
+            const elems = document.getElementsByClassName("quantity");
+            for (let i = 0; i < elems.length; i++) {
+                const item = elems.item(i);
+                const quantity = parseInt(item.textContent);
+                if (quantity > 0) {
+                    hasItems = true;
+                    searchParams.append('products[' + item.dataset.productId + ']', quantity)
+                }
+            }
+
+            if (hasItems) {
+                window.location.href = "{{ path('order_create') }}?" + searchParams.toString();
+            }
+
+            alert('Please add product');
+        }
+    </script>
 
 {% endblock %}

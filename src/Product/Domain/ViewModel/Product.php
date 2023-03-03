@@ -2,10 +2,9 @@
 
 namespace App\Product\Domain\ViewModel;
 
-class Product
+final class Product
 {
     public int $productId;
-    // category ?
     public string $title;
     public string $image;
     public string $description;
