@@ -13,8 +13,8 @@ doctrine:
         mappings:
             Order:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Order/Entity'
-                prefix: 'App\Order\Entity'
+                dir: '%kernel.project_dir%/src/Order/Domain/Entity'
+                prefix: 'App\Order\Domain\Entity'
                 alias: App
 
 when@test:

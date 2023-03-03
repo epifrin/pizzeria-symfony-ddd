@@ -2,3 +2,8 @@
 product_list:
     path: /
     controller: \App\Product\Application\Controller\ProductController::list
+
+# Order
+order_create:
+    path: /order/create
+    controller: \App\Order\Application\Controller\OrderController::create
