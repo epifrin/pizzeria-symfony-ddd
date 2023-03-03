@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.14",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.16",
+        "ramsey/uuid": "^4.7",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/asset": "6.2.*",
         "symfony/console": "6.2.*",
@@ -40,7 +41,8 @@
         "symfony/web-link": "6.2.*",
         "symfony/yaml": "6.2.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "webmozart/assert": "^1.11"
     },
     "config": {
         "allow-plugins": {
@@ -79,7 +81,10 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test": "phpunit tests",
+        "phpcs": "./vendor/bin/phpcs -p -n --colors --extensions=php --standard=PSR12 ./src ./tests",
+        "phpcbf": "./vendor/bin/phpcbf -p -n --extensions=php --standard=PSR12 ./src ./tests"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -91,8 +96,9 @@
         }
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "phpunit/phpunit": "^9.5",
+        "roave/security-advisories": "dev-latest",
+        "squizlabs/php_codesniffer": "^3.7",
         "symfony/browser-kit": "6.2.*",
         "symfony/css-selector": "6.2.*",
         "symfony/debug-bundle": "6.2.*",

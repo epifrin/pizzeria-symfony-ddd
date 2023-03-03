@@ -1,6 +1,8 @@
 .idea
 .github
 
+/docker/postgres/data/
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -15,8 +17,3 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
-
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
