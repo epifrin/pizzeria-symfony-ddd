@@ -17,8 +17,9 @@
                                 <div class="col">
                                     <button class="btn btn-primary" onclick="add({{ product.productId }});">Add</button>
                                 </div>
+                                <div class="col">{{ product.price.getUSD() }}</div>
                                 <div class="col text-end">
-                                    <span id="quantity{{ product.productId }}" data-product-id="{{ product.productId }}" class="quantity">0</span>
+                                    Qty: <span id="quantity{{ product.productId }}" data-product-id="{{ product.productId }}" class="quantity">0</span>
                                 </div>
                             </div>
                         </div>
@@ -53,9 +54,9 @@
 
             if (hasItems) {
                 window.location.href = "{{ path('order_create') }}?" + searchParams.toString();
+            } else {
+                alert('Please add product');
             }
-
-            alert('Please add product');
         }
     </script>
 

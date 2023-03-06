@@ -16,7 +16,7 @@ final class ProductController extends AbstractController
     public function list(): Response
     {
         $productList = $this->getProductList->getList();
-        return $this->render('product_list.html.twig', [
+        return $this->render('product/list.html.twig', [
             'productList' => $productList,
         ]);
     }
