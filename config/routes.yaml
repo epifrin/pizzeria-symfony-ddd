@@ -7,3 +7,8 @@ product_list:
 order_create:
     path: /order/create
     controller: \App\Order\Application\Controller\OrderController::create
+
+# Payment
+payment_index:
+    path: /payment
+    controller: \App\Payment\Application\Controller\PaymentController::index
