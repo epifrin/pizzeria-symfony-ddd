@@ -2,12 +2,16 @@
 
 namespace App\Order\Domain\ValueObject;
 
+use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;
 
 /** @immutable */
+#[ORM\Embeddable]
 final class Customer
 {
+    #[ORM\Column(type: "string", length: 50)]
     private string $firstname;
+    #[ORM\Column(type: "string", length: 50)]
     private string $lastname;
 
     /**

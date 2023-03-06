@@ -16,6 +16,16 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Order/Domain/Entity'
                 prefix: 'App\Order\Domain\Entity'
                 alias: App
+            ValueObject:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Order/Domain/ValueObject'
+                prefix: 'App\Order\Domain\ValueObject'
+                alias: App
+            CommonValueObject:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Common/Domain/ValueObject'
+                prefix: 'App\Common\Domain\ValueObject'
+                alias: App
 
 when@test:
     doctrine:

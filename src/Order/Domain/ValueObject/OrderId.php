@@ -2,20 +2,25 @@
 
 namespace App\Order\Domain\ValueObject;
 
+use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
-/** @immutable */
+/**
+ * @immutable
+ */
+#[ORM\Embeddable]
 final class OrderId
 {
-    private UuidInterface $id;
+    #[ORM\Column(type: "guid", name: "orderId")]
+    private UuidInterface $orderId;
 
-    public function __construct(UuidInterface $id)
+    public function __construct(UuidInterface $orderId)
     {
-        $this->id = $id;
+        $this->orderId = $orderId;
     }
 
     public function __toString(): string
     {
-        return $this->id->toString();
+        return $this->orderId->toString();
     }
 }

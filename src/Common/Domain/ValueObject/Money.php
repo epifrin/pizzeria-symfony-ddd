@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace App\Common\Domain\ValueObject;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/** @immutable */
+#[ORM\Embeddable]
 final class Money
 {
+    #[ORM\Column(type: "integer", name: "total_amount")]
     private int $amount;
+
     private string $currency;
 
     public function __construct(int $amount, string $currency = 'USD')

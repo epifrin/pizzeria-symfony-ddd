@@ -3,10 +3,15 @@
 namespace App\Order\Domain\ValueObject;
 
 use Webmozart\Assert\Assert;
+use Doctrine\ORM\Mapping as ORM;
 
-/** @immutable */
+/**
+ * @immutable
+ */
+#[ORM\Embeddable]
 final class Phone
 {
+    #[ORM\Column(type: "string", length: 16)]
     private string $phone;
 
     /**
