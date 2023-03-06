@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Product\Domain;
+namespace App\Product\Domain\Repository;
 
 use App\Product\Domain\ViewModel\Product;
 

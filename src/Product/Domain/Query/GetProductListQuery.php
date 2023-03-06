@@ -2,7 +2,8 @@
 
 namespace App\Product\Domain\Query;
 
-use App\Product\Domain\ProductRepository;
+use App\Product\Domain\Repository\ProductRepository;
+use App\Product\Domain\ViewModel\Product;
 
 final class GetProductListQuery
 {
@@ -11,6 +12,9 @@ final class GetProductListQuery
     ) {
     }
 
+    /**
+     * @return Product[]
+     */
     public function getList(): array
     {
         return $this->productRepository->getProductList();
