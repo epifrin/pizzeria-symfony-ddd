@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Common\Domain\ValueObject;
 
 final class Money
@@ -40,6 +42,11 @@ final class Money
         }
 
         return new Money($this->amount + $money->amount, $this->currency);
+    }
+
+    public function multiply(int $quantity): Money
+    {
+        return new Money($this->amount * $quantity, $this->currency);
     }
 
     public function subtract(Money $money): Money

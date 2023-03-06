@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Order details</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in orderProducts %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.total.getUSD() }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td></td>
+            <td><b>Total</b></td>
+            <td><b>{{ orderProducts.total.getUSD() }}</b></td>
+        </tr>
+        </tbody>
+    </table>
+    <h3>Please fill</h3>
+    {{ form(orderForm) }}
+{% endblock %}
