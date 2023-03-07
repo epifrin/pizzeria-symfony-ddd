@@ -2,6 +2,7 @@
 
 namespace App\Tests\Order;
 
+use App\Common\Domain\Event\OrderPlacedEvent;
 use App\Common\Domain\ValueObject\Money;
 use App\Order\Domain\Collection\OrderProductCollection;
 use App\Order\Domain\Dto\NewOrder;
@@ -10,7 +11,9 @@ use App\Order\Domain\Entity\Order;
 use App\Order\Domain\Repository\OrderRepository;
 use App\Order\Domain\Service\OrderService;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Uid\Factory\UuidFactory;
+use Symfony\Component\Uid\Uuid;
 
 final class OrderServiceTest extends TestCase
 {
@@ -19,14 +22,23 @@ final class OrderServiceTest extends TestCase
         $repositoryMock = $this->createMock(OrderRepository::class);
         $repositoryMock
             ->expects($this->once())
-            ->method('nextIdentity')
-            ->willReturn(Uuid::fromString('123e4567-e89b-12d3-a456-426614174000'));
-        $repositoryMock
-            ->expects($this->once())
             ->method('save')
             ->with($this->isInstanceOf(Order::class));
 
-        $orderService = new OrderService($repositoryMock);
+        $orderId = '123e4567-e89b-12d3-a456-426614174000';
+        $uuidFactoryMock = $this->createMock(UuidFactory::class);
+        $uuidFactoryMock
+            ->expects($this->once())
+            ->method('create')
+            ->willReturn(Uuid::fromString($orderId));
+
+        $eventDispatcherMock = $this->createMock(EventDispatcherInterface::class);
+        $eventDispatcherMock
+            ->expects($this->once())
+            ->method('dispatch')
+            ->with($this->equalTo(new OrderPlacedEvent($orderId, new Money(2000))));
+
+        $orderService = new OrderService($repositoryMock, $uuidFactoryMock, $eventDispatcherMock);
 
         $newOrder = new NewOrder();
         $newOrder->firstname = 'John';
@@ -42,6 +54,7 @@ final class OrderServiceTest extends TestCase
         $product1->setQuantityAndTotal(2);
         $productCollection->add($product1);
 
-        $orderService->create($newOrder, $productCollection);
+        $returnedOrderId = $orderService->create($newOrder, $productCollection);
+        $this->assertEquals($returnedOrderId, $orderId);
     }
 }

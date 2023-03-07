@@ -56,4 +56,17 @@ final class Order
         $this->orderItems[] = new OrderItem($this->orderId, $product->productId, $product->quantity, $product->price, $product->title);
         $this->totalAmount = $this->totalAmount->add($product->total);
     }
+
+    public function getOrderId(): OrderId
+    {
+        return $this->orderId;
+    }
+
+    /**
+     * @return Money
+     */
+    public function getTotalAmount(): Money
+    {
+        return $this->totalAmount;
+    }
 }
