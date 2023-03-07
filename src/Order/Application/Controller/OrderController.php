@@ -27,11 +27,8 @@ final class OrderController extends AbstractController
         $orderForm = $this->createForm(OrderForm::class, $newOrder);
         $orderForm->handleRequest($request);
         if ($orderForm->isSubmitted() && $orderForm->isValid()) {
-            $this->orderService->create($newOrder, $orderProducts);
-
-            // orderId ??
-
-            return $this->redirectToRoute('payment_index');
+            $orderId = $this->orderService->create($newOrder, $orderProducts);
+            return $this->redirectToRoute('payment_index', ['orderId' => $orderId]);
         }
 
         return $this->render('order/create.html.twig', [

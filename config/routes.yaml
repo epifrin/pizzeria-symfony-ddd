@@ -10,5 +10,5 @@ order_create:
 
 # Payment
 payment_index:
-    path: /payment
+    path: /payment/{orderId}
     controller: \App\Payment\Application\Controller\PaymentController::index
