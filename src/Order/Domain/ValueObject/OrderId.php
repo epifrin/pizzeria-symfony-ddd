@@ -3,7 +3,7 @@
 namespace App\Order\Domain\ValueObject;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @immutable
@@ -12,15 +12,15 @@ use Ramsey\Uuid\UuidInterface;
 final class OrderId
 {
     #[ORM\Column(type: "guid", name: "orderId")]
-    private UuidInterface $orderId;
+    private Uuid $orderId;
 
-    public function __construct(UuidInterface $orderId)
+    public function __construct(Uuid $orderId)
     {
         $this->orderId = $orderId;
     }
 
     public function __toString(): string
     {
-        return $this->orderId->toString();
+        return $this->orderId->toRfc4122();
     }
 }

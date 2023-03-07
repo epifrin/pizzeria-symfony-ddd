@@ -6,8 +6,6 @@ use App\Order\Domain\Entity\Order;
 use App\Order\Domain\Repository\OrderRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 
 /**
  * @extends ServiceEntityRepository<Order>
@@ -23,10 +21,5 @@ final class OrderDoctrineRepository extends ServiceEntityRepository implements O
     {
         $this->getEntityManager()->persist($order);
         $this->getEntityManager()->flush();
-    }
-
-    public function nextIdentity(): UuidInterface
-    {
-        return Uuid::uuid7();
     }
 }
