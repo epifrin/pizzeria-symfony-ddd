@@ -4,6 +4,7 @@ namespace App\Tests\Order;
 
 use App\Common\Domain\Event\OrderPlacedEvent;
 use App\Common\Domain\ValueObject\Money;
+use App\Common\Domain\ValueObject\OrderId;
 use App\Order\Domain\Collection\OrderProductCollection;
 use App\Order\Domain\Dto\NewOrder;
 use App\Order\Domain\Dto\OrderProduct;
@@ -36,7 +37,10 @@ final class OrderServiceTest extends TestCase
         $eventDispatcherMock
             ->expects($this->once())
             ->method('dispatch')
-            ->with($this->equalTo(new OrderPlacedEvent($orderId, new Money(2000))));
+            ->with($this->equalTo(new OrderPlacedEvent(
+                new OrderId(Uuid::fromString($orderId)),
+                new Money(2000)
+            )));
 
         $orderService = new OrderService($repositoryMock, $uuidFactoryMock, $eventDispatcherMock);
 

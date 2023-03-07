@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Order\Domain\ValueObject;
+namespace App\Common\Domain\ValueObject;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
@@ -11,7 +11,7 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Embeddable]
 final class OrderId
 {
-    #[ORM\Column(type: "guid", name: "orderId")]
+    #[ORM\Column(type: "guid")]
     private Uuid $orderId;
 
     public function __construct(Uuid $orderId)

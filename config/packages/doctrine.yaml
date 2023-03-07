@@ -16,6 +16,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Order/Domain/Entity'
                 prefix: 'App\Order\Domain\Entity'
                 alias: App
+            Payment:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Payment/Domain/Entity'
+                prefix: 'App\Payment\Domain\Entity'
+                alias: App
             ValueObject:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Order/Domain/ValueObject'

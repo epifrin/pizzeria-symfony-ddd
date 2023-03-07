@@ -8,7 +8,7 @@ use App\Order\Domain\Dto\NewOrder;
 use App\Order\Domain\Entity\Order;
 use App\Order\Domain\Repository\OrderRepository;
 use App\Order\Domain\ValueObject\Customer;
-use App\Order\Domain\ValueObject\OrderId;
+use App\Common\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\OrderStatus;
 use App\Order\Domain\ValueObject\Phone;
 use Psr\EventDispatcher\EventDispatcherInterface;

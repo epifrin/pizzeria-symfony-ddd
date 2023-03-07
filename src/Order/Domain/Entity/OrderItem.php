@@ -3,11 +3,11 @@
 namespace App\Order\Domain\Entity;
 
 use App\Common\Domain\ValueObject\Money;
-use App\Order\Domain\ValueObject\OrderId;
+use App\Common\Domain\ValueObject\OrderId;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-final class OrderItem
+class OrderItem
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

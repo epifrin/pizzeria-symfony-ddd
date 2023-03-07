@@ -57,7 +57,7 @@ final class Version20230305092604 extends AbstractMigration
             phone varchar(16) NOT NULL,
             delivery_address varchar(255),
             total_amount int NOT NULL,
-            status int,
+            status int NOT NULL,
             created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY(order_id)
@@ -72,13 +72,25 @@ final class Version20230305092604 extends AbstractMigration
             product_title varchar(50),
             PRIMARY KEY(id)
         );');
+
+        $this->addSql('CREATE TABLE payment (
+            payment_id uuid NOT NULL,
+            order_id uuid NOT NULL,
+            amount int NOT NULL,
+            status int NOT NULL,
+            created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+            paid_at TIMESTAMP(0) WITHOUT TIME ZONE,
+            PRIMARY KEY(payment_id)
+        );');
+
+        $this->addSql('CREATE UNIQUE INDEX order_id_index ON payment (order_id);');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        //$this->addSql('CREATE SCHEMA public');
-
+        $this->addSql('DROP TABLE payment');
         $this->addSql('DROP TABLE order_item');
         $this->addSql('DROP TABLE public.order');
         $this->addSql('DROP TABLE product');
