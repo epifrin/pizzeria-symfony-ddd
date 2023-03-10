@@ -30,7 +30,7 @@ final class OrderProductsService
             $quantity = (int)$quantity;
             Assert::greaterThan($quantity, 0);
 
-            $product = $this->productQuery->getProductById($productId);
+            $product = $this->productQuery->getById($productId);
             $product->setQuantityAndTotal($quantity);
             $orderProducts->add($product);
         }

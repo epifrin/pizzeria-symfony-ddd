@@ -10,7 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Order>
  */
-final class OrderDoctrineRepository extends ServiceEntityRepository implements OrderRepository
+final class DoctrineOrderRepository extends ServiceEntityRepository implements OrderRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

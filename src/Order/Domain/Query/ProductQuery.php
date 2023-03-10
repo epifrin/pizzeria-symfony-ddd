@@ -6,5 +6,5 @@ use App\Order\Domain\Dto\OrderProduct;
 
 interface ProductQuery
 {
-    public function getProductById(int $productId): OrderProduct;
+    public function getById(int $productId): OrderProduct;
 }
