@@ -2,7 +2,6 @@
 
 namespace App\Payment\Domain\Entity;
 
-use App\Common\Domain\ValueObject\Money;
 use App\Common\Domain\ValueObject\OrderId;
 use App\Payment\Domain\Repository\PaymentRepository;
 use App\Payment\Domain\ValueObject\PaymentId;
@@ -12,9 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PaymentRepository::class)]  /* @phpstan-ignore-line */
 class Payment
 {
-    #[ORM\Id]
-    #[ORM\Embedded(class: PaymentId::class)]
-    #[ORM\Column]
+    #[ORM\Embedded(class: PaymentId::class, columnPrefix: false)]
     private PaymentId $paymentId;
 
     #[ORM\Embedded(class: OrderId::class, columnPrefix: false)]
@@ -27,25 +24,34 @@ class Payment
     private PaymentStatus $status;
 
     #[ORM\Column(type: "datetime", nullable: true)]
-    private $paidAt;
+    private \DateTimeImmutable $paidAt;
 
-    public function setPaymentId(PaymentId $paymentId): void
+    public function __construct(PaymentId $paymentId, OrderId $orderId, int $amount, PaymentStatus $status)
     {
         $this->paymentId = $paymentId;
-    }
-
-    public function setOrderId(OrderId $orderId): void
-    {
         $this->orderId = $orderId;
-    }
-
-    public function setAmount(Money $amount): void
-    {
-        $this->amount = $amount->getAmount();
-    }
-
-    public function setStatus(PaymentStatus $status): void
-    {
+        $this->amount = $amount;
         $this->status = $status;
+    }
+
+    public function isStatusNew(): bool
+    {
+        return $this->status === PaymentStatus::NEW;
+    }
+
+    public function isStatusPaid(): bool
+    {
+        return $this->status === PaymentStatus::PAID;
+    }
+
+    public function setPaid(): void
+    {
+        $this->status = PaymentStatus::PAID;
+        $this->paidAt = new \DateTimeImmutable();
+    }
+
+    public function getOrderId(): OrderId
+    {
+        return $this->orderId;
     }
 }

@@ -11,16 +11,23 @@ use Symfony\Component\Uid\Uuid;
 #[ORM\Embeddable]
 class PaymentId
 {
-    #[ORM\Column(type: "guid", name: "paymentId")]
-    private Uuid $paymentId;
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "NONE")]
+    #[ORM\Column(type: "guid")]
+    private string $paymentId;
 
     public function __construct(Uuid $paymentId)
     {
         $this->paymentId = $paymentId;
     }
 
+    public static function fromString(string $paymentId): PaymentId
+    {
+        return new self(Uuid::fromString($paymentId));
+    }
+
     public function __toString(): string
     {
-        return $this->paymentId->toRfc4122();
+        return $this->paymentId;
     }
 }

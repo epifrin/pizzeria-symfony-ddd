@@ -2,13 +2,22 @@
 product_list:
     path: /
     controller: \App\Product\Application\Controller\ProductController::list
+    methods: GET|HEAD
 
 # Order
 order_create:
     path: /order/create
     controller: \App\Order\Application\Controller\OrderController::create
-
 # Payment
 payment_index:
     path: /payment/{orderId}
     controller: \App\Payment\Application\Controller\PaymentController::index
+    methods: GET|HEAD
+payment_pay:
+    path: /payment/pay/{paymentId}
+    controller: \App\Payment\Application\Controller\PaymentController::pay
+    methods: GET|HEAD
+payment_cancel:
+    path: /payment/cancel/{paymentId}
+    controller: \App\Payment\Application\Controller\PaymentController::cancel
+    methods: GET|HEAD

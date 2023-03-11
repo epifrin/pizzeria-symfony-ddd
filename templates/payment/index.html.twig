@@ -4,7 +4,7 @@
     <h3>Pay order</h3>
     <p>Total amount: <b>{{ paymentInfo.totalAmount }}</b></p>
 
-    <a href="" class="btn btn-danger">Cancel</a>
-    <a href="" class="btn btn-success">Pay</a>
+    <a href="{{ path('payment_cancel', {'paymentId': paymentInfo.paymentId}) }}" class="btn btn-danger">Cancel</a>
+    <a href="{{ path('payment_pay', {'paymentId': paymentInfo.paymentId}) }}" class="btn btn-success">Pay</a>
 
 {% endblock %}

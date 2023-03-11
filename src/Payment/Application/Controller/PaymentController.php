@@ -3,6 +3,8 @@
 namespace App\Payment\Application\Controller;
 
 use App\Payment\Domain\Query\GetPaymentInfoQuery;
+use App\Payment\Domain\Service\SetPaidService;
+use App\Payment\Domain\ValueObject\PaymentId;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,11 +19,14 @@ class PaymentController extends AbstractController
         ]);
     }
 
-    public function pay(): Response
+    public function pay(string $paymentId, SetPaidService $setPaidService): Response
     {
+        $setPaidService->setPaid(PaymentId::fromString($paymentId));
+        return $this->redirectToRoute('product_list');
     }
 
-    public function cancel(): Response
+    public function cancel(string $paymentId): Response
     {
+        return $this->redirectToRoute('product_list');
     }
 }

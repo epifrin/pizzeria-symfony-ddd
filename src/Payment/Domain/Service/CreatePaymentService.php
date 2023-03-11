@@ -10,7 +10,7 @@ use App\Payment\Domain\ValueObject\PaymentId;
 use App\Payment\Domain\ValueObject\PaymentStatus;
 use Symfony\Component\Uid\Factory\UuidFactory;
 
-class CreatePaymentService
+final class CreatePaymentService
 {
     public function __construct(
         private readonly PaymentRepository $paymentRepository,
@@ -18,13 +18,14 @@ class CreatePaymentService
     ) {
     }
 
-    public function create(OrderId $orderId, Money $amount): void
+    public function create(OrderId $orderId, Money $money): void
     {
-        $payment = new Payment();
-        $payment->setPaymentId(new PaymentId($this->uuidFactory->create()));
-        $payment->setOrderId($orderId);
-        $payment->setAmount($amount);
-        $payment->setStatus(PaymentStatus::NEW);
+        $payment = new Payment(
+            new PaymentId($this->uuidFactory->create()),
+            $orderId,
+            $money->getAmount(),
+            PaymentStatus::NEW
+        );
 
         $this->paymentRepository->save($payment, true);
     }

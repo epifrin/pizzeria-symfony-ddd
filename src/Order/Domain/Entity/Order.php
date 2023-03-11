@@ -10,6 +10,7 @@ use App\Common\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\OrderStatus;
 use App\Order\Domain\ValueObject\Phone;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;
 
@@ -19,8 +20,7 @@ class Order
 {
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "NONE")]
-    #[ORM\Column]
-    #[ORM\Embedded(class: OrderId::class)]
+    #[ORM\Embedded(class: OrderId::class, columnPrefix: false)]
     private OrderId $orderId;
 
     #[ORM\Embedded(class: Customer::class, columnPrefix: false)]
@@ -38,11 +38,14 @@ class Order
     #[ORM\Embedded(class: Money::class, columnPrefix: false)]
     private Money $totalAmount;
 
+    #[ORM\Column(type: "datetime", nullable: true)]
+    private \DateTimeImmutable $updatedAt;
+
     /**
      * @phpstan-var ArrayCollection<int, OrderItem>
      */
     #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'orderId', cascade: ['persist'])]
-    private $orderItems;
+    private Collection $orderItems;
 
     public function __construct(OrderId $orderId, Customer $customer, Phone $phone, string $address, OrderStatus $status)
     {
@@ -53,6 +56,7 @@ class Order
         $this->deliveryAddress = $address;
         $this->status = $status;
         $this->totalAmount = new Money(0);
+        $this->orderItems = new ArrayCollection();
     }
 
     public function addItem(OrderProduct $product): void
@@ -66,11 +70,14 @@ class Order
         return $this->orderId;
     }
 
-    /**
-     * @return Money
-     */
     public function getTotalAmount(): Money
     {
         return $this->totalAmount;
+    }
+
+    public function setPaid(): void
+    {
+        $this->status = OrderStatus::PAID;
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }

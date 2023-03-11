@@ -12,7 +12,7 @@ use App\Order\Domain\Entity\Order;
 use App\Order\Domain\Repository\OrderRepository;
 use App\Order\Domain\Service\OrderService;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Uid\Factory\UuidFactory;
 use Symfony\Component\Uid\Uuid;
 

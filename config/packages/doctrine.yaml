@@ -16,15 +16,20 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Order/Domain/Entity'
                 prefix: 'App\Order\Domain\Entity'
                 alias: App
+            OrderValueObject:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Order/Domain/ValueObject'
+                prefix: 'App\Order\Domain\ValueObject'
+                alias: App
             Payment:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Payment/Domain/Entity'
                 prefix: 'App\Payment\Domain\Entity'
                 alias: App
-            ValueObject:
+            PaymentValueObject:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Order/Domain/ValueObject'
-                prefix: 'App\Order\Domain\ValueObject'
+                dir: '%kernel.project_dir%/src/Payment/Domain/ValueObject'
+                prefix: 'App\Payment\Domain\ValueObject'
                 alias: App
             CommonValueObject:
                 is_bundle: false
