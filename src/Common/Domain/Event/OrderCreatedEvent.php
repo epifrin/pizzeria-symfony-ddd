@@ -6,7 +6,7 @@ use App\Common\Domain\ValueObject\Money;
 use App\Common\Domain\ValueObject\OrderId;
 use Symfony\Contracts\EventDispatcher\Event;
 
-final class OrderPlacedEvent extends Event
+final class OrderCreatedEvent extends Event
 {
     public function __construct(
         private OrderId $orderId,

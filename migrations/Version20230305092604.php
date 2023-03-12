@@ -85,11 +85,26 @@ final class Version20230305092604 extends AbstractMigration
         );');
 
         $this->addSql('CREATE UNIQUE INDEX order_id_index ON payment (order_id);');
+
+        $this->addSql('CREATE TABLE delivery (
+            id SERIAL,
+            order_id uuid NOT NULL,
+            firstname varchar(50) NOT NULL,
+            lastname varchar(50) NOT NULL,
+            phone varchar(16) NOT NULL,
+            delivery_address varchar(255) NOT NULL,
+            delivery_man varchar(255) NOT NULL,
+            status int NOT NULL,
+            created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+            delivered_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
+            PRIMARY KEY(id)
+        );');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('DROP TABLE delivery');
         $this->addSql('DROP TABLE payment');
         $this->addSql('DROP TABLE order_item');
         $this->addSql('DROP TABLE public.order');

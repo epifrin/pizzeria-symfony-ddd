@@ -31,6 +31,16 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Payment/Domain/ValueObject'
                 prefix: 'App\Payment\Domain\ValueObject'
                 alias: App
+            Delivery:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Delivery/Domain/Entity'
+                prefix: 'App\Delivery\Domain\Entity'
+                alias: App
+            DeliveryValueObject:
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Delivery/Domain/ValueObject'
+                prefix: 'App\Delivery\Domain\ValueObject'
+                alias: App
             CommonValueObject:
                 is_bundle: false
                 dir: '%kernel.project_dir%/src/Common/Domain/ValueObject'

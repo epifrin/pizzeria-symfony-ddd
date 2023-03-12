@@ -21,3 +21,8 @@ payment_cancel:
     path: /payment/cancel/{paymentId}
     controller: \App\Payment\Application\Controller\PaymentController::cancel
     methods: GET|HEAD
+# Delivery
+delivery_status:
+    path: /delivery/status/{orderId}
+    controller: \App\Delivery\Application\Controller\DeliveryController::status
+    methods: GET|HEAD
