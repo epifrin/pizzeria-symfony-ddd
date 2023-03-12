@@ -44,6 +44,14 @@ class DoctrinePaymentRepository extends ServiceEntityRepository implements Payme
         return new PaymentInfo($record['payment_id'], new Money($record['amount']));
     }
 
+    public function getOrderIdByPaymentId(PaymentId $paymentId): string
+    {
+        return $this->getEntityManager()->getConnection()->fetchOne(
+            'SELECT order_id FROM payment WHERE payment_id = :payment_id',
+            ['payment_id' => $paymentId]
+        ) ?? throw new \InvalidArgumentException('Payment with id ' . $paymentId . ' is not found');
+    }
+
     public function save(Payment $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);

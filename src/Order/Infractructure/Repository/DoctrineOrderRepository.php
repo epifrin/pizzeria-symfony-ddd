@@ -2,6 +2,7 @@
 
 namespace App\Order\Infractructure\Repository;
 
+use App\Common\Domain\ValueObject\OrderId;
 use App\Order\Domain\Entity\Order;
 use App\Order\Domain\Repository\OrderRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -22,9 +23,16 @@ final class DoctrineOrderRepository extends ServiceEntityRepository implements O
         parent::__construct($registry, Order::class);
     }
 
-    public function save(Order $order): void
+    public function getById(OrderId $orderId): Order
     {
-        $this->getEntityManager()->persist($order);
+        return
+            $this->findOneBy(['orderId.orderId' => $orderId])
+            ?? throw new \DomainException('Order ' . $orderId . ' is not found');
+    }
+
+    public function save(Order $entity): void
+    {
+        $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
     }
 }

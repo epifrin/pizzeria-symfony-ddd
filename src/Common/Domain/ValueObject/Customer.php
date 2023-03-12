@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Order\Domain\ValueObject;
+namespace App\Common\Domain\ValueObject;
 
 use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;

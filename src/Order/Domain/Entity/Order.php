@@ -5,10 +5,10 @@ namespace App\Order\Domain\Entity;
 use App\Common\Domain\ValueObject\Money;
 use App\Order\Domain\Dto\OrderProduct;
 use App\Order\Domain\Repository\OrderRepository;
-use App\Order\Domain\ValueObject\Customer;
+use App\Common\Domain\ValueObject\Customer;
 use App\Common\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\OrderStatus;
-use App\Order\Domain\ValueObject\Phone;
+use App\Common\Domain\ValueObject\Phone;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,7 +30,7 @@ class Order
     private Phone $phone;
 
     #[ORM\Column(length: 255)]
-    public string $deliveryAddress;
+    private string $deliveryAddress;
 
     #[ORM\Column(type: "integer", enumType: OrderStatus::class)]
     private OrderStatus $status;
@@ -38,7 +38,7 @@ class Order
     #[ORM\Embedded(class: Money::class, columnPrefix: false)]
     private Money $totalAmount;
 
-    #[ORM\Column(type: "datetime", nullable: true)]
+    #[ORM\Column(type: "datetime_immutable", nullable: true)]
     private \DateTimeImmutable $updatedAt;
 
     /**
@@ -75,9 +75,24 @@ class Order
         return $this->totalAmount;
     }
 
-    public function setPaid(): void
+    public function setPrepared(): void
     {
-        $this->status = OrderStatus::PAID;
+        $this->status = OrderStatus::PREPARED;
         $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getCustomer(): Customer
+    {
+        return $this->customer;
+    }
+
+    public function getPhone(): Phone
+    {
+        return $this->phone;
+    }
+
+    public function getDeliveryAddress(): string
+    {
+        return $this->deliveryAddress;
     }
 }

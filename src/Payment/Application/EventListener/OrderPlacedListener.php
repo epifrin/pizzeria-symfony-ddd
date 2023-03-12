@@ -2,7 +2,7 @@
 
 namespace App\Payment\Application\EventListener;
 
-use App\Common\Domain\Event\OrderPlacedEvent;
+use App\Common\Domain\Event\OrderCreatedEvent;
 use App\Payment\Domain\Service\CreatePaymentService;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
@@ -14,7 +14,7 @@ class OrderPlacedListener
     ) {
     }
 
-    public function __invoke(OrderPlacedEvent $event): void
+    public function __invoke(OrderCreatedEvent $event): void
     {
         $this->createPayment->create($event->getOrderId(), $event->getTotalAmount());
     }

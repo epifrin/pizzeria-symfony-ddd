@@ -13,4 +13,6 @@ interface PaymentRepository
     public function findOneByPaymentId(PaymentId $paymentId): ?Payment;
 
     public function findOneByOrderId(string $orderId): PaymentInfo;
+
+    public function getOrderIdByPaymentId(PaymentId $paymentId): string;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Order\Domain\ValueObject;
+namespace App\Common\Domain\ValueObject;
 
 use Webmozart\Assert\Assert;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +21,7 @@ final class Phone
     {
         Assert::notEmpty($phone);
         Assert::numeric($phone);
+        Assert::lengthBetween($phone, 6, 16);
         $this->phone = $phone;
     }
 

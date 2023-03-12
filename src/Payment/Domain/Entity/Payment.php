@@ -23,7 +23,7 @@ class Payment
     #[ORM\Column(type: "integer", enumType: PaymentStatus::class)]
     private PaymentStatus $status;
 
-    #[ORM\Column(type: "datetime", nullable: true)]
+    #[ORM\Column(type: "datetime_immutable", nullable: true)]
     private \DateTimeImmutable $paidAt;
 
     public function __construct(PaymentId $paymentId, OrderId $orderId, int $amount, PaymentStatus $status)

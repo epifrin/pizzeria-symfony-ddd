@@ -2,19 +2,19 @@
 
 namespace App\Order\Domain\Service;
 
-use App\Common\Domain\Event\OrderPlacedEvent;
+use App\Common\Domain\Event\OrderCreatedEvent;
 use App\Order\Domain\Collection\OrderProductCollection;
 use App\Order\Domain\Dto\NewOrder;
 use App\Order\Domain\Entity\Order;
 use App\Order\Domain\Repository\OrderRepository;
-use App\Order\Domain\ValueObject\Customer;
+use App\Common\Domain\ValueObject\Customer;
 use App\Common\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\OrderStatus;
-use App\Order\Domain\ValueObject\Phone;
+use App\Common\Domain\ValueObject\Phone;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Uid\Factory\UuidFactory;
 
-final class OrderService
+final class CreateOrderService
 {
     public function __construct(
         private readonly OrderRepository $orderRepository,
@@ -40,7 +40,7 @@ final class OrderService
         $this->orderRepository->save($order);
 
         $this->eventDispatcher->dispatch(
-            new OrderPlacedEvent($order->getOrderId(), $order->getTotalAmount())
+            new OrderCreatedEvent($order->getOrderId(), $order->getTotalAmount())
         );
 
         return $order->getOrderId();
