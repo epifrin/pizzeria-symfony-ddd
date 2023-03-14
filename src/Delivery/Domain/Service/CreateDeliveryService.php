@@ -34,6 +34,9 @@ class CreateDeliveryService
         $this->eventDispatcher->dispatch(new DeliveryCanceledEvent($orderId));
     }
 
+    /**
+     * Fake method to get available delivery man
+     */
     private function getAvailableDeliveryMan(): ?string
     {
         $deliveryMen = ['John Spider', 'Jack Speed', 'Anna Swiftness', null];

@@ -58,14 +58,14 @@ class Delivery
         $this->deliveryMan = $deliveryMan;
     }
 
-    public function setStatusInProgress()
-    {
-        $this->status = DeliveryStatus::IN_PROGRESS;
-    }
-
     public function isStatusNew(): bool
     {
         return $this->status === DeliveryStatus::NEW;
+    }
+
+    public function setStatusInProgress(): void
+    {
+        $this->status = DeliveryStatus::IN_PROGRESS;
     }
 
     public function isStatusInProgress(): bool

@@ -3,6 +3,7 @@
 namespace App\Payment\Infrastructure\Repository;
 
 use App\Common\Domain\ValueObject\Money;
+use App\Common\Domain\ValueObject\OrderId;
 use App\Payment\Domain\Entity\Payment;
 use App\Payment\Domain\Repository\PaymentRepository;
 use App\Payment\Domain\ValueObject\PaymentId;
@@ -30,7 +31,12 @@ class DoctrinePaymentRepository extends ServiceEntityRepository implements Payme
         return $this->findOneBy(['paymentId.paymentId' => $paymentId]);
     }
 
-    public function findOneByOrderId(string $orderId): PaymentInfo
+    public function findOneByOrderId(OrderId $orderId): ?Payment
+    {
+        return $this->findOneBy(['orderId.orderId' => $orderId]);
+    }
+
+    public function getPaymentInfoByOrderId(string $orderId): PaymentInfo
     {
         /** @var false|array{payment_id: string, amount: int} $record */
         $record = $this->getEntityManager()->getConnection()->fetchAssociative(
@@ -46,10 +52,15 @@ class DoctrinePaymentRepository extends ServiceEntityRepository implements Payme
 
     public function getOrderIdByPaymentId(PaymentId $paymentId): string
     {
-        return $this->getEntityManager()->getConnection()->fetchOne(
+        /** @var string|false $result */
+        $result = $this->getEntityManager()->getConnection()->fetchOne(
             'SELECT order_id FROM payment WHERE payment_id = :payment_id',
             ['payment_id' => $paymentId]
-        ) ?? throw new \InvalidArgumentException('Payment with id ' . $paymentId . ' is not found');
+        );
+        if (!$result) {
+            throw new \InvalidArgumentException('Payment with id ' . $paymentId . ' is not found');
+        }
+        return $result;
     }
 
     public function save(Payment $entity, bool $flush = false): void

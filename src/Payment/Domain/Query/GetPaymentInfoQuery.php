@@ -13,6 +13,6 @@ class GetPaymentInfoQuery
 
     public function getPaymentByOrderId(string $orderId): PaymentInfo
     {
-        return $this->paymentRepository->findOneByOrderId($orderId);
+        return $this->paymentRepository->getPaymentInfoByOrderId($orderId);
     }
 }
