@@ -50,6 +50,11 @@ class Payment
         $this->paidAt = new \DateTimeImmutable();
     }
 
+    public function setRefund(): void
+    {
+        $this->status = PaymentStatus::REFUND;
+    }
+
     public function getOrderId(): OrderId
     {
         return $this->orderId;

@@ -5,7 +5,7 @@ namespace App\Order\Domain\ValueObject;
 enum OrderStatus: int
 {
     case NEW = 0;
-    case CANCELLED = 1;
-    case PREPARED = 2;
-    case DELIVERED = 3;
+    case PREPARED = 1;
+    case DELIVERED = 2;
+    case CANCELLED = 10;
 }
