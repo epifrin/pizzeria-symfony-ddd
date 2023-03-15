@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h3>Pay order</h3>
-    <p>Total amount: <b>{{ paymentInfo.totalAmount }}</b></p>
+    <h1>Pay order</h1>
+    <p>Total amount: <b id="total-amount">{{ paymentInfo.totalAmount }}</b></p>
 
     <a href="{{ path('payment_cancel', {'paymentId': paymentInfo.paymentId}) }}" class="btn btn-danger">Cancel</a>
     <a href="{{ path('payment_pay', {'paymentId': paymentInfo.paymentId}) }}" class="btn btn-success">Pay</a>
