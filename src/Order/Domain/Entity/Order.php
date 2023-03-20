@@ -81,6 +81,12 @@ class Order
         $this->updatedAt = new \DateTimeImmutable();
     }
 
+    public function setDelivered(): void
+    {
+        $this->status = OrderStatus::DELIVERED;
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
     public function setCancel(): void
     {
         $this->status = OrderStatus::CANCELLED;

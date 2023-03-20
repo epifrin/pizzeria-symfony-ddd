@@ -2,8 +2,10 @@
 
 namespace App\Delivery\Infrastructure\Repository;
 
+use App\Common\Domain\ValueObject\OrderId;
 use App\Delivery\Domain\Entity\Delivery;
 use App\Delivery\Domain\Repository\DeliveryRepository;
+use App\Delivery\Domain\ViewModel\DeliveryInfo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -26,5 +28,21 @@ final class DoctrineDeliveryRepository extends ServiceEntityRepository implement
     {
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush();
+    }
+
+    public function getDeliveryInfoByOrderId(OrderId $orderId): DeliveryInfo
+    {
+        /** @var false|array{order_id: string, status: int, delivery_address: string} $record */
+        $record = $this->getEntityManager()->getConnection()
+            ->fetchAssociative(
+                'SELECT order_id, status, delivery_address FROM delivery WHERE order_id = :order_id',
+                ['order_id' => $orderId]
+            );
+
+        if (empty($record)) {
+            throw new \DomainException('Delivery with order id ' . $orderId . ' not found');
+        }
+
+        return new DeliveryInfo($record['order_id'], $record['status'], $record['delivery_address']);
     }
 }

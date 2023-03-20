@@ -26,3 +26,6 @@ delivery_status:
     path: /delivery/status/{orderId}
     controller: \App\Delivery\Application\Controller\DeliveryController::status
     methods: GET|HEAD
+delivery_approve:
+    path: /delivery/approve/{orderId}
+    controller: \App\Delivery\Application\Controller\DeliveryController::approve

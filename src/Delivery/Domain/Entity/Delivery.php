@@ -72,4 +72,15 @@ class Delivery
     {
         return $this->status === DeliveryStatus::IN_PROGRESS;
     }
+
+    public function setStatusDelivered(): void
+    {
+        $this->status = DeliveryStatus::DELIVERED;
+        $this->deliveredAt = new \DateTimeImmutable();
+    }
+
+    public function isStatusDelivered(): bool
+    {
+        return $this->status === DeliveryStatus::DELIVERED;
+    }
 }

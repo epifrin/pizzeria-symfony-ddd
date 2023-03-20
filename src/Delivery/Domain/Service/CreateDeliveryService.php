@@ -11,7 +11,7 @@ use App\Delivery\Infrastructure\Helper\ArrayRand;
 use App\Common\Domain\ValueObject\Customer;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
-class CreateDeliveryService
+final class CreateDeliveryService
 {
     public function __construct(
         private readonly ArrayRand $arrayRand,
@@ -23,15 +23,16 @@ class CreateDeliveryService
     public function create(OrderId $orderId, Customer $customer, Phone $phone, string $deliveryAddress): void
     {
         $deliveryMan = $this->getAvailableDeliveryMan();
-        if ($deliveryMan) {
-            $delivery = Delivery::create($orderId, $customer, $phone, $deliveryAddress);
-            $delivery->setDeliveryMan($deliveryMan);
-            $delivery->setStatusInProgress();
-            $this->deliveryRepository->save($delivery);
+
+        if (is_null($deliveryMan)) {
+            $this->eventDispatcher->dispatch(new DeliveryCanceledEvent($orderId));
             return;
         }
 
-        $this->eventDispatcher->dispatch(new DeliveryCanceledEvent($orderId));
+        $delivery = Delivery::create($orderId, $customer, $phone, $deliveryAddress);
+        $delivery->setDeliveryMan($deliveryMan);
+        $delivery->setStatusInProgress();
+        $this->deliveryRepository->save($delivery);
     }
 
     /**

@@ -20,7 +20,7 @@ class OrderPreparedListener
             $event->getOrderId(),
             $event->getCustomer(),
             $event->getPhone(),
-            $event->getPhone()
+            $event->getDeliveryAddress()
         );
     }
 }

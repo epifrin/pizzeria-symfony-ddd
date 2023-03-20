@@ -14,7 +14,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 
 class CreateDeliveryServiceTest extends TestCase
 {
-    public function testCreateDeliverySuccessfully()
+    public function testCreateDeliverySuccessfully(): void
     {
         $arrayRandMock = $this->createStub(ArrayRand::class);
         $arrayRandMock->method('rand')->willReturn(0);

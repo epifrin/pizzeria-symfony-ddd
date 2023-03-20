@@ -3,6 +3,14 @@
 {% block body %}
     <h3>Delivery status</h3>
 
-    <a href="" class="btn btn-success">I'm received the order</a>
+    <p>Order Id: <b>{{ deliveryInfo.orderId }}</b></p>
+    {% if (deliveryInfo.inProgress) %}
+        <p>Address: <b>{{ deliveryInfo.address }}</b></p>
+        <a href="{{ path('delivery_approve', {'orderId': deliveryInfo.orderId}) }}" class="btn btn-success">I'm received the order</a>
+    {% elseif (deliveryInfo.delivered) %}
+        <b>This order is already delivered!</b>
+    {% else %}
+
+    {% endif %}
 
 {% endblock %}

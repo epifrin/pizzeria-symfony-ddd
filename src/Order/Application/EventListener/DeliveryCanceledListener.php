@@ -7,7 +7,7 @@ use App\Order\Domain\Service\CancelOrderService;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
 #[AsEventListener]
-class DeliveryCanceledListener
+final class DeliveryCanceledListener
 {
     public function __construct(
         private readonly CancelOrderService $cancelOrderService
