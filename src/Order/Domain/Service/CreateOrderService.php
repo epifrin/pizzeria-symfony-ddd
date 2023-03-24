@@ -3,7 +3,7 @@
 namespace App\Order\Domain\Service;
 
 use App\Common\Domain\Event\OrderCreatedEvent;
-use App\Order\Domain\Collection\OrderProductCollection;
+use App\Order\Domain\Collection\ProductCollection;
 use App\Order\Domain\Dto\NewOrder;
 use App\Order\Domain\Entity\Order;
 use App\Order\Domain\Repository\OrderRepository;
@@ -23,7 +23,7 @@ final class CreateOrderService
     ) {
     }
 
-    public function create(NewOrder $newOrder, OrderProductCollection $orderProducts): string
+    public function create(NewOrder $newOrder, ProductCollection $orderProducts): string
     {
         $order = new Order(
             new OrderId($this->uuidFactory->create()),

@@ -14,8 +14,9 @@ use Webmozart\Assert\Assert;
 class Delivery
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue('SEQUENCE')]
-    private int $id;
+    #[ORM\GeneratedValue(strategy: 'SEQUENCE')]
+    //#[ORM\Column(type: "integer", nullable: true)]
+    private ?int $id = null;
 
     #[ORM\Embedded(class: OrderId::class, columnPrefix: false)]
     private OrderId $orderId;

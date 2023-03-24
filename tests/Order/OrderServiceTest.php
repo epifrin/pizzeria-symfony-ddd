@@ -5,10 +5,10 @@ namespace App\Tests\Order;
 use App\Common\Domain\Event\OrderCreatedEvent;
 use App\Common\Domain\ValueObject\Money;
 use App\Common\Domain\ValueObject\OrderId;
-use App\Order\Domain\Collection\OrderProductCollection;
+use App\Order\Domain\Collection\ProductCollection;
 use App\Order\Domain\Dto\NewOrder;
-use App\Order\Domain\Dto\OrderProduct;
 use App\Order\Domain\Entity\Order;
+use App\Order\Domain\ReadModel\Product;
 use App\Order\Domain\Repository\OrderRepository;
 use App\Order\Domain\Service\CreateOrderService;
 use PHPUnit\Framework\TestCase;
@@ -50,12 +50,8 @@ final class OrderServiceTest extends TestCase
         $newOrder->phone = '0667234234';
         $newOrder->deliveryAddress = 'New York';
 
-        $productCollection = new OrderProductCollection();
-        $product1 = new OrderProduct();
-        $product1->productId = 1;
-        $product1->title = 'Product 1';
-        $product1->price = new Money(1000);
-        $product1->setQuantityAndTotal(2);
+        $productCollection = new ProductCollection();
+        $product1 = new Product(1, 2, 1000, 'Product 1');
         $productCollection->add($product1);
 
         $returnedOrderId = $orderService->create($newOrder, $productCollection);

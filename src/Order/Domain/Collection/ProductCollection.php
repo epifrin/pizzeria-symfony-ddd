@@ -3,15 +3,15 @@
 namespace App\Order\Domain\Collection;
 
 use App\Common\Domain\ValueObject\Money;
-use App\Order\Domain\Dto\OrderProduct;
+use App\Order\Domain\ReadModel\Product;
 use Traversable;
 
 /**
- * @implements \IteratorAggregate<int, OrderProduct>
+ * @implements \IteratorAggregate<int, Product>
  */
-final class OrderProductCollection implements \IteratorAggregate
+final class ProductCollection implements \IteratorAggregate
 {
-    /** @var OrderProduct[] */
+    /** @var Product[] */
     private array $products = [];
     private Money $total;
 
@@ -20,10 +20,10 @@ final class OrderProductCollection implements \IteratorAggregate
         $this->total = new Money(0);
     }
 
-    public function add(OrderProduct $product): void
+    public function add(Product $product): void
     {
         $this->products[] = $product;
-        $this->total = $this->total->add($product->price->multiply($product->quantity));
+        $this->total = $this->total->add($product->getPrice()->multiply($product->getQuantity()));
     }
 
     public function getTotal(): Money

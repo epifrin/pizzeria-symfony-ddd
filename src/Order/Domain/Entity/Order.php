@@ -3,7 +3,7 @@
 namespace App\Order\Domain\Entity;
 
 use App\Common\Domain\ValueObject\Money;
-use App\Order\Domain\Dto\OrderProduct;
+use App\Order\Domain\ReadModel\Product;
 use App\Order\Domain\Repository\OrderRepository;
 use App\Common\Domain\ValueObject\Customer;
 use App\Common\Domain\ValueObject\OrderId;
@@ -59,10 +59,10 @@ class Order
         $this->orderItems = new ArrayCollection();
     }
 
-    public function addItem(OrderProduct $product): void
+    public function addItem(Product $product): void
     {
-        $this->orderItems[] = new OrderItem($this->orderId, $product->productId, $product->quantity, $product->price, $product->title);
-        $this->totalAmount = $this->totalAmount->add($product->total);
+        $this->orderItems[] = new OrderItem($this->orderId, $product->getProductId(), $product->getQuantity(), $product->getPrice(), $product->getTitle());
+        $this->totalAmount = $this->totalAmount->add($product->getTotal());
     }
 
     public function getOrderId(): OrderId
