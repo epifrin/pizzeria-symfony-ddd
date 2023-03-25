@@ -88,7 +88,12 @@
         "coverage": "phpunit tests --coverage-html ./var/code-coverage",
         "stan": "phpstan analyze -l 9 --xdebug src",
         "cs": "./vendor/bin/phpcs -p -n --colors --extensions=php --standard=PSR12 ./src ./tests",
-        "cbf": "./vendor/bin/phpcbf -p -n --extensions=php --standard=PSR12 ./src ./tests"
+        "cbf": "./vendor/bin/phpcbf -p -n --extensions=php --standard=PSR12 ./src ./tests",
+        "testfull": [
+            "@test",
+            "@stan",
+            "@cs"
+        ]
     },
     "conflict": {
         "symfony/symfony": "*"
