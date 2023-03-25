@@ -86,9 +86,9 @@
         ],
         "test": "phpunit tests --testdox",
         "coverage": "phpunit tests --coverage-html ./var/code-coverage",
-        "phpstan": "phpstan analyze -l 9 --xdebug src",
-        "phpcs": "./vendor/bin/phpcs -p -n --colors --extensions=php --standard=PSR12 ./src ./tests",
-        "phpcbf": "./vendor/bin/phpcbf -p -n --extensions=php --standard=PSR12 ./src ./tests"
+        "stan": "phpstan analyze -l 9 --xdebug src",
+        "cs": "./vendor/bin/phpcs -p -n --colors --extensions=php --standard=PSR12 ./src ./tests",
+        "cbf": "./vendor/bin/phpcbf -p -n --extensions=php --standard=PSR12 ./src ./tests"
     },
     "conflict": {
         "symfony/symfony": "*"
