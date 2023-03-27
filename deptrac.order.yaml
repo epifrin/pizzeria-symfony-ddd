@@ -1,0 +1,40 @@
+parameters:
+    paths:
+        - ./src/Order
+    exclude_files:
+        - '#.*test.*#'
+    layers:
+        - name: Application
+          collectors:
+              - type: className
+                value: app\\Order\\Application.*
+        - name: Domain
+          collectors:
+              - type: className
+                regex: app\\Order\\Domain.*
+        - name: Infrastructure
+          collectors:
+              - type: className
+                regex: app\\Order\\Infrastructure.*
+        - name: SharedDomain
+          collectors:
+              - type: className
+                regex: app\\Common\\Domain.*
+        - name: Doctrine
+          collectors:
+              - type: className
+                regex: Doctrine\\.*
+        - name: SymfonyForm
+          collectors:
+              - type: className
+                regex: Symfony\\Component\\Form.*
+    ruleset:
+        Application:
+            - Domain
+            - SharedDomain
+            - SymfonyForm
+        Infrastructure:
+            - Application
+        Domain:
+            - SharedDomain
+            - Doctrine
