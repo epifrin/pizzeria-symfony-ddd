@@ -107,4 +107,9 @@ class Order
     {
         return $this->deliveryAddress;
     }
+
+    public function isPrepared(): bool
+    {
+        return $this->status === OrderStatus::PREPARED;
+    }
 }

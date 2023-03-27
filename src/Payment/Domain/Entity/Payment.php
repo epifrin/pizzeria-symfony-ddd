@@ -34,14 +34,19 @@ class Payment
         $this->status = $status;
     }
 
-    public function isStatusNew(): bool
+    public function isNew(): bool
     {
         return $this->status === PaymentStatus::NEW;
     }
 
-    public function isStatusPaid(): bool
+    public function isPaid(): bool
     {
         return $this->status === PaymentStatus::PAID;
+    }
+
+    public function isRefunded(): bool
+    {
+        return $this->status === PaymentStatus::REFUND;
     }
 
     public function setPaid(): void
@@ -58,5 +63,10 @@ class Payment
     public function getOrderId(): OrderId
     {
         return $this->orderId;
+    }
+
+    public function getPaymentId(): PaymentId
+    {
+        return $this->paymentId;
     }
 }

@@ -21,9 +21,12 @@ final class SetPaidService
         if (is_null($payment)) {
             throw new \DomainException('Payment ' . $paymentId . ' not found');
         }
-        if ($payment->isStatusNew() === false) {
+        if ($payment->isNew() === false) {
             throw new \DomainException('Payment ' . $paymentId . ' status is not NEW');
         }
+
+        // set paid: Call PSP
+
         $payment->setPaid();
         $this->paymentRepository->save($payment);
 

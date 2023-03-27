@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Order;
+namespace App\Tests\Unit\Order;
 
 use App\Common\Domain\Event\OrderPreparedEvent;
 use App\Common\Domain\ValueObject\Customer;
@@ -22,17 +22,19 @@ final class PreparedOrderServiceTest extends TestCase
         $phone = new Phone('738945834435');
         $address = 'New York';
 
+        $order = new Order(
+            $orderId,
+            $customer,
+            $phone,
+            $address,
+            OrderStatus::NEW
+        );
+
         $repositoryMock = $this->createMock(OrderRepository::class);
         $repositoryMock
             ->expects($this->once())
             ->method('getById')
-            ->willReturn(new Order(
-                $orderId,
-                $customer,
-                $phone,
-                $address,
-                OrderStatus::NEW
-            ));
+            ->willReturn($order);
 
         $repositoryMock
             ->expects($this->once())
@@ -53,5 +55,7 @@ final class PreparedOrderServiceTest extends TestCase
         $service = new PrepareOrderService($repositoryMock, $eventDispatcherMock);
 
         $service->setPrepared($orderId);
+
+        $this->assertTrue($order->isPrepared());
     }
 }
