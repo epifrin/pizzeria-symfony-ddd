@@ -17,6 +17,9 @@ class RefundService
         if (is_null($payment)) {
             throw new \DomainException('Payment with order id ' . $orderId . ' not found');
         }
+        if ($payment->isPaid() === false) {
+            throw new \DomainException('Payment with id ' . $payment->getPaymentId() . ' can not be refunded');
+        }
 
         // set refund: Call PSP
 
