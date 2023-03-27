@@ -93,7 +93,8 @@
             "@test",
             "@stan",
             "@cs"
-        ]
+        ],
+        "deptrac-order": "./vendor/bin/deptrac analyse --config-file=deptrac.order.yaml --report-uncovered"
     },
     "conflict": {
         "symfony/symfony": "*"

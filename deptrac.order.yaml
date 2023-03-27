@@ -35,6 +35,7 @@ parameters:
             - SymfonyForm
         Infrastructure:
             - Application
+            - Domain
         Domain:
             - SharedDomain
             - Doctrine
