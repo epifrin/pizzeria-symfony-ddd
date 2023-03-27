@@ -22,6 +22,8 @@ final class Customer
     {
         Assert::notEmpty($firstname);
         Assert::notEmpty($lastname);
+        Assert::lengthBetween($firstname, 1, 50);
+        Assert::lengthBetween($lastname, 1, 50);
         $this->firstname = $firstname;
         $this->lastname = $lastname;
     }
