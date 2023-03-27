@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Payment;
+namespace App\Tests\Unit\Payment;
 
 use App\Common\Domain\ValueObject\Money;
 use App\Common\Domain\ValueObject\OrderId;

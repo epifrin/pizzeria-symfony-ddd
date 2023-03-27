@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller;
+namespace App\Tests\Functional;
 
 use App\Order\Domain\Repository\OrderRepository;
 use App\Order\Domain\ValueObject\OrderStatus;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Order;
+namespace App\Tests\Unit\Order;
 
 use App\Common\Domain\Event\OrderCreatedEvent;
 use App\Common\Domain\ValueObject\Money;

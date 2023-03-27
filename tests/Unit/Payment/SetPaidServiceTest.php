@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Payment;
+namespace App\Tests\Unit\Payment;
 
 use App\Common\Domain\Event\OrderPaidEvent;
 use App\Common\Domain\ValueObject\OrderId;
@@ -34,7 +34,7 @@ class SetPaidServiceTest extends TestCase
             ->method('save')
             ->with(
                 $this->callback(static function (Payment $payment) {
-                    return $payment->isStatusPaid();
+                    return $payment->isPaid();
                 })
             );
 
